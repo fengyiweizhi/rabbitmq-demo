@@ -6,6 +6,10 @@ import com.rabbitmq.client.*;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 这是路由模式消费者
+ * @author 风亦未止
+ */
 public class Consumer1 {
 
 
