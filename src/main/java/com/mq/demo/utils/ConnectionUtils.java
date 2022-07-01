@@ -6,6 +6,10 @@ import com.rabbitmq.client.ConnectionFactory;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 链接工具
+ * @author 风亦未止
+ */
 public class ConnectionUtils {
 
     public static Connection getConnection() throws IOException, TimeoutException {
@@ -13,7 +17,7 @@ public class ConnectionUtils {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         //主机地址;默认为 localhost
         connectionFactory.setHost("127.0.0.1");
-        //连接端口;默认为 5672
+        //连接端口;默认为 5672 -- docker上默认49154
         connectionFactory.setPort(49154);
         //虚拟主机名称;默认为 /
         connectionFactory.setVirtualHost("/");
