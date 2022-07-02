@@ -60,6 +60,7 @@ public class Producer {
         System.out.println("已发送消息：" + message);
 
         //释放资源
+        //释放
         channel.close();
         connection.close();
 
