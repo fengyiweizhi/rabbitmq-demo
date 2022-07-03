@@ -8,6 +8,10 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 发布订阅模式
+ * @author 风亦未止
+ */
 public class Producer {
 
     public static String FANOUT_EXCHAGE = "fanout_exchage";

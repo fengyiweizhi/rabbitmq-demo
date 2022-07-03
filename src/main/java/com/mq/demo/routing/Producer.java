@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * 路由模式生产者
+ * 路由模式
  * @author 风亦未止
  */
 public class Producer {

@@ -8,6 +8,10 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 工作队列模式
+ * @author 风亦未止
+ */
 public class Producer {
 
 

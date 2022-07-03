@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * 发布/订阅模式
+ * 通配符模式
  */
 public class Producer {
 
