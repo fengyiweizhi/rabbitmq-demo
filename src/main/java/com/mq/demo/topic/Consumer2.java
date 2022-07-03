@@ -61,9 +61,9 @@ public class Consumer2 {
          */
         channel.basicConsume(Producer.TOPIC_QUEUE_INSERT_UPDATE, true, consumer);
 
-        //释放资源
-//        channel.close();
-//        connection.close();
+//        释放资源
+        channel.close();
+        connection.close();
 
     }
 

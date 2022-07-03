@@ -8,6 +8,9 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 发布/订阅模式
+ */
 public class Producer {
 
     public static String TOPIC_EXCHAGE = "topic_exchage";
