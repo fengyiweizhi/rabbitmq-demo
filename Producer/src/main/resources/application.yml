@@ -5,6 +5,12 @@ spring:
     virtual-host: /
     username: guest
     password: guest
+    publisher-confirms: true #开启确认模式
+    publisher-returns: true #开启回退模式
+    listener:
+      direct:
+        acknowledge-mode: manual #手动应答
+        prefetch: 1 #限制流，每次发送一条数据。
 mq:
   exchange_name: "springboot_item_topic_exchange"
   queue_name: "springboot_item_queue"

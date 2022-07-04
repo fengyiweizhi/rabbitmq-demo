@@ -36,11 +36,11 @@ public class RabbitMqConfig {
 
     /**
      *  声明队列
-     * @return
+     *  过期时间 100000
      */
     @Bean("itemTopicQueue")
     public Queue topicQueue(){
-        return QueueBuilder.durable(queue_name).build();
+        return QueueBuilder.durable(queue_name).withArgument("x-message-ttl",100000).build();
     }
 
     /**
@@ -50,7 +50,7 @@ public class RabbitMqConfig {
     public Binding itemQueueExchange(@Qualifier("itemTopicExchange") Exchange exchange,
                                      @Qualifier("itemTopicQueue") Queue queue){
         //routingkey为绑定规则
-        //#通配多级
+        //   #通配多级
         return BindingBuilder.bind(queue).to(exchange).with("item.#").noargs();
     }
 
