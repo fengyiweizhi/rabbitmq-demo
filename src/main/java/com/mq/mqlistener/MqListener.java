@@ -4,6 +4,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * 监听消息
  * @author 风亦未止
  * @date 2022/1/9 19:18
  */
