@@ -1,0 +1,10 @@
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 49154
+    virtual-host: /
+    username: guest
+    password: guest
+mq:
+  exchange_name: "springboot_item_topic_exchange"
+  queue_name: "springboot_item_queue"
