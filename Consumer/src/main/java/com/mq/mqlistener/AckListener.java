@@ -1,4 +1,4 @@
-package com.mq.config;
+package com.mq.mqlistener;
 
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
@@ -32,7 +32,7 @@ public class AckListener implements ChannelAwareMessageListener {
             channel.basicAck(deliveryTag,true);
         } catch (Exception e) {
             //4.拒绝签收
-            channel.basicNack(deliveryTag,true,true);
+            channel.basicNack(deliveryTag,true,false);
             //channel.basicReject(deliveryTag,true)
         }
 

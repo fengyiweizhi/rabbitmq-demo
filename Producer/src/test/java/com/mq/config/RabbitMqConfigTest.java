@@ -110,4 +110,15 @@ public class RabbitMqConfigTest extends TestCase {
         //发送消息
         rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.insert","插入",messagePostProcessor);
     }
+
+
+    /**
+     * 测试过期死信消息
+     */
+    @Test
+    public void testDlx(){
+        //发送消息
+        rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.demo","死信？");
+    }
+
 }

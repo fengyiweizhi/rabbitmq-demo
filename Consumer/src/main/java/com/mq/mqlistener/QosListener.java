@@ -1,4 +1,4 @@
-package com.mq.config;
+package com.mq.mqlistener;
 
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;

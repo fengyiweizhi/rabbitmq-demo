@@ -35,13 +35,47 @@ public class RabbitMqConfig {
     }
 
     /**
-     *  声明队列
+     *  声明正常的队列，设置x-dead-letter-exchange和x-dead-letter-routing-key
      *  过期时间 100000
      */
     @Bean("itemTopicQueue")
     public Queue topicQueue(){
-        return QueueBuilder.durable(queue_name).withArgument("x-message-ttl",100000).build();
+        return QueueBuilder.durable(queue_name).withArgument("x-message-ttl",100000)
+                //x-dead-letter-exchange：死信交换机名称
+                .withArgument("x-dead-letter-exchange","exchange_dlx")
+                // x-dead-letter-routing-key：发送给死信交换机的routingkey
+                .withArgument("x-dead-letter-routing-key","dlx.e").build();
     }
+
+    /**
+     * 声明死信队列
+     * @return
+     */
+    @Bean("dlxQueue")
+    public Queue dlxQueue(){
+        return QueueBuilder.durable("queue_dlx").build();
+    }
+
+    /**
+     * 声明死信交换机
+     * @return
+     */
+    @Bean("dlxTopicQueue")
+    public Exchange dlxExchange(){
+        return ExchangeBuilder.topicExchange("exchange_dlx").durable(true).build();
+    }
+    /**
+     * 绑定交换机
+     */
+    @Bean
+    public Binding dlxQueueExchange(@Qualifier("dlxTopicQueue") Exchange exchange,
+                                     @Qualifier("dlxQueue") Queue queue){
+        //routingkey为绑定规则
+        //   #通配多级
+        return BindingBuilder.bind(queue).to(exchange).with("dlx.#").noargs();
+    }
+
+
 
     /**
      * 绑定交换机
