@@ -121,4 +121,20 @@ public class RabbitMqConfigTest extends TestCase {
         rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.demo","死信？");
     }
 
+
+    /**
+     * 测试延迟队列-订单过期
+     */
+    @Test
+    public void testOder() throws InterruptedException {
+        //发送消息
+        rabbitTemplate.convertAndSend("order_exchange","order.demo","消息demo");
+        //10秒倒计时
+        for(int i=10;i>0;i--){
+            System.out.println(i+"秒后过期...");
+            Thread.sleep(1000);
+        }
+        System.out.println("已过期...");
+    }
+
 }

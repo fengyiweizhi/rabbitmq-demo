@@ -13,38 +13,38 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitMqConfig {
-    /**
-     * 交换机名称
-     */
-    @Value("${mq.exchange_name}")
-    public String exchange_name;
-
-    /**
-     * 队列名称
-     */
-    @Value("${mq.queue_name}")
-    public String queue_name;
+//    /**
+//     * 交换机名称
+//     */
+//    @Value("${mq.exchange_name}")
+//    public String exchange_name;
+//
+//    /**
+//     * 队列名称
+//     */
+//    @Value("${mq.queue_name}")
+//    public String queue_name;
 
     /**
      *  声明交换机
      * @return
      */
-    @Bean("itemTopicExchange")
+    @Bean("orderTopicExchange")
     public Exchange topicExchange(){
-        return ExchangeBuilder.topicExchange(exchange_name).durable(true).build();
+        return ExchangeBuilder.topicExchange("order_exchange").durable(true).build();
     }
 
     /**
      *  声明正常的队列，设置x-dead-letter-exchange和x-dead-letter-routing-key
-     *  过期时间 100000
+     *  过期时间 10000 --10秒钟
      */
-    @Bean("itemTopicQueue")
+    @Bean("oderTopicQueue")
     public Queue topicQueue(){
-        return QueueBuilder.durable(queue_name).withArgument("x-message-ttl",100000)
+        return QueueBuilder.durable("order_queue").withArgument("x-message-ttl",10000)
                 //x-dead-letter-exchange：死信交换机名称
-                .withArgument("x-dead-letter-exchange","exchange_dlx")
+                .withArgument("x-dead-letter-exchange","order_exchange_dlx")
                 // x-dead-letter-routing-key：发送给死信交换机的routingkey
-                .withArgument("x-dead-letter-routing-key","dlx.e").build();
+                .withArgument("x-dead-letter-routing-key","dlx.order.quxiao").build();
     }
 
     /**
@@ -62,7 +62,7 @@ public class RabbitMqConfig {
      */
     @Bean("dlxTopicQueue")
     public Exchange dlxExchange(){
-        return ExchangeBuilder.topicExchange("exchange_dlx").durable(true).build();
+        return ExchangeBuilder.topicExchange("order_exchange_dlx").durable(true).build();
     }
     /**
      * 绑定交换机
@@ -72,7 +72,7 @@ public class RabbitMqConfig {
                                      @Qualifier("dlxQueue") Queue queue){
         //routingkey为绑定规则
         //   #通配多级
-        return BindingBuilder.bind(queue).to(exchange).with("dlx.#").noargs();
+        return BindingBuilder.bind(queue).to(exchange).with("dlx.oder.#").noargs();
     }
 
 
@@ -81,11 +81,11 @@ public class RabbitMqConfig {
      * 绑定交换机
      */
     @Bean
-    public Binding itemQueueExchange(@Qualifier("itemTopicExchange") Exchange exchange,
-                                     @Qualifier("itemTopicQueue") Queue queue){
+    public Binding itemQueueExchange(@Qualifier("orderTopicExchange") Exchange exchange,
+                                     @Qualifier("oderTopicQueue") Queue queue){
         //routingkey为绑定规则
         //   #通配多级
-        return BindingBuilder.bind(queue).to(exchange).with("item.#").noargs();
+        return BindingBuilder.bind(queue).to(exchange).with("order.#").noargs();
     }
 
 

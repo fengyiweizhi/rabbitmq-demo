@@ -15,7 +15,7 @@ public class MqListener {
      * 监听某个队列的消息
      * @param message
      */
-    @RabbitListener(queues = "springboot_item_queue")
+    @RabbitListener(queues = "queue_dlx")
     public void mqListener(String message){
         System.out.println(message);
     }
