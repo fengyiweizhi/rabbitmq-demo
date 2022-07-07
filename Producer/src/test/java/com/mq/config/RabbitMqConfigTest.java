@@ -28,9 +28,9 @@ public class RabbitMqConfigTest extends TestCase {
      */
     @Test
     public void test(){
-        rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.insert","插入");
-        rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.update","更新");
-        rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.delete","删除");
+        rabbitTemplate.convertAndSend("order_exchange","order.insert","插入");
+        rabbitTemplate.convertAndSend("order_exchange","order.update","更新");
+        rabbitTemplate.convertAndSend("order_exchange","order.delete","删除");
     }
 
     /**
@@ -118,7 +118,7 @@ public class RabbitMqConfigTest extends TestCase {
     @Test
     public void testDlx(){
         //发送消息
-        rabbitTemplate.convertAndSend("springboot_item_topic_exchange","item.demo","死信？");
+        rabbitTemplate.convertAndSend("order_exchange","order.demo.12","死信？");
     }
 
 

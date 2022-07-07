@@ -31,7 +31,7 @@ public class RabbitMqConfig {
      */
     @Bean("orderTopicExchange")
     public Exchange topicExchange(){
-        return ExchangeBuilder.topicExchange("order_exchange").durable(true).build();
+        return ExchangeBuilder.directExchange("order_exchange").durable(true).build();
     }
 
     /**
@@ -45,6 +45,18 @@ public class RabbitMqConfig {
                 .withArgument("x-dead-letter-exchange","order_exchange_dlx")
                 // x-dead-letter-routing-key：发送给死信交换机的routingkey
                 .withArgument("x-dead-letter-routing-key","dlx.order.quxiao").build();
+    }
+
+
+    /**
+     * 绑定交换机
+     */
+    @Bean
+    public Binding itemQueueExchange(@Qualifier("orderTopicExchange") Exchange exchange,
+                                     @Qualifier("oderTopicQueue") Queue queue){
+        //routingkey为绑定规则
+        //   #通配多级
+        return BindingBuilder.bind(queue).to(exchange).with("order.#").noargs();
     }
 
     /**
@@ -62,31 +74,20 @@ public class RabbitMqConfig {
      */
     @Bean("dlxTopicQueue")
     public Exchange dlxExchange(){
-        return ExchangeBuilder.topicExchange("order_exchange_dlx").durable(true).build();
+        return ExchangeBuilder.directExchange("order_exchange_dlx").durable(true).build();
     }
+
     /**
      * 绑定交换机
      */
     @Bean
     public Binding dlxQueueExchange(@Qualifier("dlxTopicQueue") Exchange exchange,
-                                     @Qualifier("dlxQueue") Queue queue){
+                                    @Qualifier("dlxQueue") Queue queue){
         //routingkey为绑定规则
         //   #通配多级
         return BindingBuilder.bind(queue).to(exchange).with("dlx.oder.#").noargs();
     }
 
-
-
-    /**
-     * 绑定交换机
-     */
-    @Bean
-    public Binding itemQueueExchange(@Qualifier("orderTopicExchange") Exchange exchange,
-                                     @Qualifier("oderTopicQueue") Queue queue){
-        //routingkey为绑定规则
-        //   #通配多级
-        return BindingBuilder.bind(queue).to(exchange).with("order.#").noargs();
-    }
 
 
 }

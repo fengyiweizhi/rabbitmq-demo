@@ -15,7 +15,7 @@ public class MqListener {
      * 监听某个队列的消息
      * @param message
      */
-    @RabbitListener(queues = "queue_dlx")
+    @RabbitListener(queues = "order_queue")
     public void mqListener(String message){
         System.out.println(message);
     }
