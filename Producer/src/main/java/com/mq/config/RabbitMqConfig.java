@@ -1,6 +1,8 @@
 package com.mq.config;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +25,16 @@ public class RabbitMqConfig {
 //     * 队列名称
 //     */
 //    @Value("${mq.queue_name}")
-//    public String queue_name;
+//    public String queue_name;\
+
+    /**
+     * 序列化
+     * @return
+     */
+    @Bean
+    public MessageConverter messageConverter(){
+        return new Jackson2JsonMessageConverter();
+    }
 
     /**
      *  声明交换机
@@ -31,7 +42,7 @@ public class RabbitMqConfig {
      */
     @Bean("orderTopicExchange")
     public Exchange topicExchange(){
-        return ExchangeBuilder.directExchange("order_exchange").durable(true).build();
+        return ExchangeBuilder.topicExchange("order_exchange").durable(true).build();
     }
 
     /**
@@ -74,7 +85,7 @@ public class RabbitMqConfig {
      */
     @Bean("dlxTopicQueue")
     public Exchange dlxExchange(){
-        return ExchangeBuilder.directExchange("order_exchange_dlx").durable(true).build();
+        return ExchangeBuilder.topicExchange("order_exchange_dlx").durable(true).build();
     }
 
     /**

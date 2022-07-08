@@ -10,7 +10,7 @@ spring:
     listener:
       direct:
         acknowledge-mode: manual #手动应答
-        prefetch: 1 #限制流，每次发送一条数据。
+#        prefetch: 1 #限制流，每次发送一条数据。
 mq:
   exchange_name: "springboot_item_topic_exchange"
   queue_name: "springboot_item_queue"

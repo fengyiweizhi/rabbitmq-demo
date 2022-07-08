@@ -1,4 +1,4 @@
-package com.mq.mqlistener;
+package com.mq.reverse;
 
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author 风亦未止
  * @date 2022/7/4 22:51
  */
-@Component
+//@Component
 public class QosListener implements ChannelAwareMessageListener {
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {
