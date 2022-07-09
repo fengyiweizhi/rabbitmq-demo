@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyListener {
     @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(name = ""),
-            exchange = @Exchange(name = "",type = ExchangeTypes.TOPIC),
+            value = @Queue(name = "order_queue"),
+            exchange = @Exchange(name = "order_exchange",type = ExchangeTypes.TOPIC),
             key = {"order.#"}
     ))
-    public void myListener(){
-
+    public void myListener(String s){
+        System.out.println(s);
     }
 }

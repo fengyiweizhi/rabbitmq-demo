@@ -51,53 +51,55 @@ public class RabbitMqConfig {
      */
     @Bean("oderTopicQueue")
     public Queue topicQueue(){
-        return QueueBuilder.durable("order_queue").withArgument("x-message-ttl",10000)
-                //x-dead-letter-exchange：死信交换机名称
-                .withArgument("x-dead-letter-exchange","order_exchange_dlx")
-                // x-dead-letter-routing-key：发送给死信交换机的routingkey
-                .withArgument("x-dead-letter-routing-key","dlx.order.quxiao").build();
+        return QueueBuilder.durable("order_queue")
+//                .withArgument("x-message-ttl",10000)
+//                //x-dead-letter-exchange：死信交换机名称
+//                .withArgument("x-dead-letter-exchange","order_exchange_dlx")
+//                // x-dead-letter-routing-key：发送给死信交换机的routingkey
+//                .withArgument("x-dead-letter-routing-key","dlx.order.quxiao")
+                .build();
     }
 
 
     /**
      * 绑定交换机
      */
-    @Bean
-    public Binding itemQueueExchange(@Qualifier("orderTopicExchange") Exchange exchange,
-                                     @Qualifier("oderTopicQueue") Queue queue){
-        //routingkey为绑定规则
-        //   #通配多级
-        return BindingBuilder.bind(queue).to(exchange).with("order.#").noargs();
-    }
+//    @Bean
+//    public Binding itemQueueExchange(@Qualifier("orderTopicExchange") Exchange exchange,
+//                                     @Qualifier("oderTopicQueue") Queue queue){
+//        //routingkey为绑定规则
+//        //   #通配多级
+//        return BindingBuilder.bind(queue).to(exchange).with("order.#").noargs();
+//    }
 
-    /**
-     * 声明死信队列
-     * @return
-     */
-    @Bean("dlxQueue")
-    public Queue dlxQueue(){
-        return QueueBuilder.durable("queue_dlx").build();
-    }
-
-    /**
-     * 声明死信交换机
-     * @return
-     */
-    @Bean("dlxTopicQueue")
-    public Exchange dlxExchange(){
-        return ExchangeBuilder.topicExchange("order_exchange_dlx").durable(true).build();
-    }
-
-    /**
-     * 绑定交换机
-     */
-    @Bean
-    public Binding dlxQueueExchange(@Qualifier("dlxTopicQueue") Exchange exchange,
-                                    @Qualifier("dlxQueue") Queue queue){
-        //routingkey为绑定规则
-        //   #通配多级
-        return BindingBuilder.bind(queue).to(exchange).with("dlx.oder.#").noargs();
-    }
+//    /**
+//     * 声明死信队列
+//     * @return
+//     */
+//    @Bean("dlxQueue")
+//    public Queue dlxQueue(){
+//        return QueueBuilder.durable("queue_dlx").build();
+//    }
+//
+//    /**
+//     * 声明死信交换机
+//     * @return
+//     */
+//    @Bean("dlxTopicQueue")
+//    public Exchange dlxExchange(){
+//        return ExchangeBuilder.topicExchange("order_exchange_dlx").durable(true).build();
+//    }
+//
+//    /**
+//     * 绑定交换机
+//     */
+//    @Bean
+//    public Binding dlxQueueExchange(@Qualifier("dlxTopicQueue") Exchange exchange,
+//                                    @Qualifier("dlxQueue") Queue queue){
+//        //routingkey为绑定规则
+//        //   #通配多级
+//        return BindingBuilder.bind(queue).to(exchange).with("dlx.oder.#").noargs();
+//    }
 
 
 
