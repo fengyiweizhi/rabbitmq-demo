@@ -118,7 +118,7 @@ public class RabbitMqConfigTest extends TestCase {
     @Test
     public void testDlx(){
         //发送消息
-        rabbitTemplate.convertAndSend("order_exchange","order.demo.12","死信？");
+        rabbitTemplate.convertAndSend("order_exchange","order.demo","这是什么？");
     }
 
 
